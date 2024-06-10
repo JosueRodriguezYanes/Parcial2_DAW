@@ -1,0 +1,12 @@
+com\des\appweb\controladores\MateriaController.class
+com\des\appweb\entidades\Alumno.class
+com\des\appweb\entidades\Inscripcion.class
+com\des\appweb\negocio\DataServiceMateria.class
+com\des\appweb\controladores\IndexController.class
+conversores\DateConverter.class
+com\des\appweb\resources\App.class
+com\des\appweb\resources\Recurso.class
+com\des\appweb\controladores\InscripcionController.class
+com\des\appweb\negocio\DataServiceInscripcion.class
+com\des\appweb\entidades\Materia.class
+com\des\appweb\negocio\DataService.class
