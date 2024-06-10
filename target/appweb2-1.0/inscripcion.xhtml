@@ -5,62 +5,67 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <title>Inscripciones</title>
+    <style>
+        .button-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .button-container .button {
+            margin-right: 20px;
+        }
+        
+        .form-container {
+            margin-bottom: 20px;
+        }
+    </style>
 </h:head>
 <h:body>
+    <div class="button-container">
+        <h:form>
+            <p:commandButton value="Ir a Alumnos" action="index.xhtml" styleClass="button"/>
+            <p:commandButton value="Ir a Materias" action="materia.xhtml" styleClass="button"/>
+        </h:form>
+    </div>
+
+    <div class="form-container">
+        <h:form>
+            <h3>Registrar Inscripción</h3>
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel value="Alumno:" />
+                <h:selectOneMenu value="#{inscripcionController.inscripcion.alumno}">
+                    <f:selectItem itemLabel="Seleccione Alumno" itemValue="" />
+                    <f:selectItems value="#{inscripcionController.alumnosList}" var="alumno"
+                                   itemLabel="#{alumno.nombre}" itemValue="#{alumno}" />
+                </h:selectOneMenu>
+                
+                <h:outputLabel value="Materia:" />
+                <h:selectOneMenu value="#{inscripcionController.inscripcion.materia}">
+                    <f:selectItem itemLabel="Seleccione Materia" itemValue="" />
+                    <f:selectItems value="#{inscripcionController.materiasList}" var="materia"
+                                   itemLabel="#{materia.nombre}" itemValue="#{materia}" />
+                </h:selectOneMenu>
+                
+                <h:outputLabel value="Ciclo:" />
+                <h:inputText value="#{inscripcionController.inscripcion.ciclo}" />
+                
+                <h:outputLabel value="Año:" />
+                <h:inputText value="#{inscripcionController.inscripcion.anio}" />
+                
+                <!-- Agrega aquí otros campos del formulario si los necesitas -->
+            </h:panelGrid>
+            <h:commandButton value="Guardar" action="#{inscripcionController.guardarInscripcion}" />
+        </h:form>
+    </div>
+
+    <h3>Lista de Inscripciones</h3>
     <h:form>
-        <h3>Registrar Inscripción</h3>
-        
-        <h:panelGrid columns="2" cellpadding="5">
-            <h:outputLabel value="Alumno:" />
-            <h:selectOneMenu value="#{inscripcionController.inscripcion.alumno}">
-                <f:selectItem itemLabel="Seleccione Alumno" itemValue="" />
-                <f:selectItems value="#{inscripcionController.alumnosList}" var="alumno"
-                               itemLabel="#{alumno.nombre}" itemValue="#{alumno}" />
-            </h:selectOneMenu>
-            
-            <h:outputLabel value="Materia:" />
-            <h:selectOneMenu value="#{inscripcionController.inscripcion.materia}">
-                <f:selectItem itemLabel="Seleccione Materia" itemValue="" />
-                <f:selectItems value="#{inscripcionController.materiasList}" var="materia"
-                               itemLabel="#{materia.nombre}" itemValue="#{materia}" />
-            </h:selectOneMenu>
-            
-            <h:outputLabel value="Ciclo:" />
-            <h:inputText value="#{inscripcionController.inscripcion.ciclo}" />
-            
-            <h:outputLabel value="Año:" />
-            <h:inputText value="#{inscripcionController.inscripcion.anio}" />
-            
-            
-        </h:panelGrid>
-        
-        <h:commandButton value="Guardar" action="#{inscripcionController.guardarInscripcion}" />
-        
-        <h3>Lista de Inscripciones</h3>
         <p:dataTable value="#{inscripcionController.inscripcionesList}" var="inscripcion">
             <p:column headerText="ID">
                 <h:outputText value="#{inscripcion.id}" />
             </p:column>
-            <p:column headerText="Alumno">
-                <h:outputText value="#{inscripcion.alumno.nombre}" />
-            </p:column>
-            <p:column headerText="Materia">
-                <h:outputText value="#{inscripcion.materia.nombre}" />
-            </p:column>
-            <p:column headerText="Ciclo">
-                <h:outputText value="#{inscripcion.ciclo}" />
-            </p:column>
-            <p:column headerText="Año">
-                <h:outputText value="#{inscripcion.anio}" />
-            </p:column>
-            
-            
-<p:column>
-                    <f:facet name="header">Fecha </f:facet>
-                    <h:outputText value="#{inscripcion.fechaInscripcion}">
-                        <f:convertDateTime pattern="dd/MM/yyyy"/>
-                    </h:outputText>
- </p:column>
+            <!-- Otros campos de la tabla -->
         </p:dataTable>
     </h:form>
 </h:body>
