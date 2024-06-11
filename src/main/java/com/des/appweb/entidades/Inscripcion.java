@@ -12,11 +12,11 @@ public class Inscripcion {
     @SequenceGenerator(name = "inscripcion_id_seq", sequenceName = "inscripcion_id_seq", allocationSize = 1)
     private Integer id;
 
-    @ManyToOne
+    @OneToMany
     @JoinColumn(name = "alumno_id", nullable = false)
     private Alumno alumno;
 
-    @ManyToOne
+    @ManyToOne 
     @JoinColumn(name = "materia_id", nullable = false)
     private Materia materia;
 
@@ -24,11 +24,24 @@ public class Inscripcion {
     private String ciclo;
 
     @Column(name = "año")
-    private Integer año;
+    private String año;
 
-    @Column(name = " fechaInscripcion")
+    @Column(name = "fechaInscripcion")
     @Temporal(TemporalType.DATE)
     private Date  fechaInscripcion;
+
+    public Inscripcion(Integer id, Alumno alumno, Materia materia, String ciclo, String año, Date fechaInscripcion) {
+        this.id = id;
+        this.alumno = alumno;
+        this.materia = materia;
+        this.ciclo = ciclo;
+        this.año = año;
+        this.fechaInscripcion = fechaInscripcion;
+    }
+
+    public Inscripcion() {
+    }
+
 
     // Getters y setters
     public Integer getId() {
@@ -63,14 +76,15 @@ public class Inscripcion {
         this.ciclo = ciclo;
     }
 
-    public Integer getAnio() {
+    public String getAño() {
         return año;
     }
 
-    public void setAnio(Integer año) {
+    public void setAño(String año) {
         this.año = año;
     }
 
+    
     public Date getFechaInscripcion() {
         return fechaInscripcion;
     }
@@ -86,12 +100,35 @@ public class Inscripcion {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Inscripcion that = (Inscripcion) obj;
-        return Objects.equals(id, that.id);
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Inscripcion other = (Inscripcion) obj;
+        if (!Objects.equals(this.ciclo, other.ciclo)) {
+            return false;
+        }
+        if (!Objects.equals(this.año, other.año)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.alumno, other.alumno)) {
+            return false;
+        }
+        if (!Objects.equals(this.materia, other.materia)) {
+            return false;
+        }
+        return Objects.equals(this.fechaInscripcion, other.fechaInscripcion);
     }
 
+    
     @Override
     public String toString() {
         return "Inscripcion{" +

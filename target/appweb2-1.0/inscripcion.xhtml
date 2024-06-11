@@ -3,70 +3,124 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<h:head>
-    <title>Inscripciones</title>
-    <style>
-        .button-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        
-        .button-container .button {
-            margin-right: 20px;
-        }
-        
-        .form-container {
-            margin-bottom: 20px;
-        }
-    </style>
-</h:head>
-<h:body>
-    <div class="button-container">
-        <h:form>
-            <p:commandButton value="Ir a Alumnos" action="index.xhtml" styleClass="button"/>
-            <p:commandButton value="Ir a Materias" action="materia.xhtml" styleClass="button"/>
-        </h:form>
-    </div>
+    <h:head>
+        <title>Inscripciones</title>
+        <style>
+            .button-container {
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+            }
 
-    <div class="form-container">
-        <h:form>
-            <h3>Registrar Inscripción</h3>
-            <h:panelGrid columns="2" cellpadding="5">
-                <h:outputLabel value="Alumno:" />
-                <h:selectOneMenu value="#{inscripcionController.inscripcion.alumno}">
-                    <f:selectItem itemLabel="Seleccione Alumno" itemValue="" />
-                    <f:selectItems value="#{inscripcionController.alumnosList}" var="alumno"
-                                   itemLabel="#{alumno.nombre}" itemValue="#{alumno}" />
-                </h:selectOneMenu>
-                
-                <h:outputLabel value="Materia:" />
-                <h:selectOneMenu value="#{inscripcionController.inscripcion.materia}">
-                    <f:selectItem itemLabel="Seleccione Materia" itemValue="" />
-                    <f:selectItems value="#{inscripcionController.materiasList}" var="materia"
-                                   itemLabel="#{materia.nombre}" itemValue="#{materia}" />
-                </h:selectOneMenu>
-                
-                <h:outputLabel value="Ciclo:" />
-                <h:inputText value="#{inscripcionController.inscripcion.ciclo}" />
-                
-                <h:outputLabel value="Año:" />
-                <h:inputText value="#{inscripcionController.inscripcion.anio}" />
-                
-                <!-- Agrega aquí otros campos del formulario si los necesitas -->
-            </h:panelGrid>
-            <h:commandButton value="Guardar" action="#{inscripcionController.guardarInscripcion}" />
-        </h:form>
-    </div>
+            .button-container .button {
+                margin-right: 20px;
+            }
 
-    <h3>Lista de Inscripciones</h3>
-    <h:form>
-        <p:dataTable value="#{inscripcionController.inscripcionesList}" var="inscripcion">
-            <p:column headerText="ID">
-                <h:outputText value="#{inscripcion.id}" />
-            </p:column>
-            <!-- Otros campos de la tabla -->
-        </p:dataTable>
-    </h:form>
-</h:body>
+            .form-container {
+                margin-bottom: 20px;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        
+        <h:form>
+            <div class="button-container">
+                <p:commandButton value="Ir a Alumnos" action="index.xhtml" styleClass="button"/>
+                <p:commandButton value="Ir a Materias" action="materia.xhtml" styleClass="button"/>
+            </div>
+        </h:form>
+        
+        <!--Formulario de Inscripción-->
+        <p:card style="margin: 5% 5% 5% 5%"> 
+            <f:facet name="title">
+                Formulario de Inscripción
+            </f:facet>
+            
+            <h:form id="inscripcionForm">
+                <p:panelGrid columns="1" layout="grid">
+                    <h:inputHidden id="id" value="#{inscripcionController.inscripcion.id}"/>
+
+                    <h:outputLabel value="Alumno:" />
+                    <h:selectOneMenu value="#{inscripcionController.inscripcion.alumno}">
+                        <f:selectItem itemLabel="Seleccione Alumno" itemValue="" />
+                        <f:selectItems value="#{inscripcionController.alumnosList}" var="alumno"
+                                          itemLabel="#{alumno.nombre}" itemValue="#{alumno}" />
+                    </h:selectOneMenu>
+
+                    <h:outputLabel value="Materia:" />
+                    <h:selectOneMenu value="#{inscripcionController.inscripcion.materia}">
+                        <f:selectItem itemLabel="Seleccione Materia" itemValue="" />
+                        <f:selectItems value="#{inscripcionController.materiasList}" var="materia"
+                                           itemLabel="#{materia.nombre}" itemValue="#{materia}" />
+                    </h:selectOneMenu>
+
+                    <h:outputLabel value="Ciclo:" />
+                    <h:inputText value="#{inscripcionController.inscripcion.ciclo}" />
+
+                    <h:outputLabel value="Año:" />
+                    <h:inputText value="#{inscripcionController.inscripcion.año}" />
+
+
+                </p:panelGrid>
+                
+                <p:panelGrid columns="4" layout="grid">
+                    <p:commandButton value="Guardar" actionListener="#{inscripcionController.guardarInscripcion}" update=":tablaInscripciones :inscripcionForm"/>
+                </p:panelGrid>
+
+            </h:form>
+        </p:card>
+
+
+                
+        
+        <!-- Listado de Alumnos -->
+    <p:card style="margin: 5% 5% 5% 5%">
+        <h1>Listado de Inscripciones</h1>
+        <h:form id="tablaInscripciones">
+            <p:dataTable rows="5" paginator="true" paginatorPosition="bottom"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLink} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                         rowsPerPageTemplate="5,10,{ShowAll|'All'}"
+                         value="#{inscripcionController.inscripcionesList}" var="inscripcion">
+                
+                
+                 <p:column headerText="ID">
+                    <h:outputText value="#{inscripcion.id}" />
+                </p:column>
+                
+                <p:column headerText="Alumno">
+                    <h:outputText value="#{inscripcion.alumno.nombre}" />
+                </p:column>
+                
+                <p:column headerText="Materia">
+                    <h:outputText value="#{inscripcion.materia.nombre}" />
+                </p:column>
+                
+                <p:column headerText="Ciclo">
+                    <h:outputText value="#{inscripcion.ciclo}" />
+                </p:column>
+                
+                <p:column headerText="Año">
+                    <h:outputText value="#{inscripcion.año}" />
+                </p:column>
+
+                <p:column>
+                    <f:facet name="header">Fecha </f:facet>
+                    <h:outputText value="#{inscripcion.fechaInscripcion}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </h:outputText>
+                </p:column>
+                
+                
+                
+            </p:dataTable>
+            
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+            </p:confirmDialog>
+            
+        </h:form>
+    </p:card>
+    </h:body>
 </html>

@@ -9,6 +9,8 @@ import com.des.appweb.negocio.DataServiceInscripcion;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ import java.util.List;
 @Named
 @RequestScoped
 public class InscripcionController {
+
     private List<Inscripcion> inscripcionesList = new ArrayList<>();
     private Inscripcion inscripcion = new Inscripcion();
     private List<Alumno> alumnosList = new ArrayList<>();
@@ -52,19 +55,15 @@ public class InscripcionController {
         materiasList = dataServiceMateria.getMaterias();
     }
 
-public void guardarInscripcion()
-    {
-    
-    // Establecer la fecha de inscripción como la fecha actual
-    inscripcion.setFechaInscripcion(Calendar.getInstance().getTime());
-    
-    if(inscripcion.getId() != null) {
-        inscripcionService.editInscripcion(inscripcion);
-    } else {
-        inscripcionService.saveInscripcion(inscripcion);
-    }
-    inscripcion = new Inscripcion();
-    cargarInscripciones();
+    public void guardarInscripcion() {
+
+   
+            // Establece la fecha de inscripción como la fecha actual
+            inscripcion.setFechaInscripcion(Calendar.getInstance().getTime());
+            inscripcionService.saveInscripcion(inscripcion);
+            cargarInscripciones();
+            inscripcion = new Inscripcion();  // Reset form
+       
     }
 
     // Getters y setters

@@ -37,6 +37,9 @@ public class Alumno {
     @Column(name="carnet")
     private String carnet;
 
+    @OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Inscripcion> inscripciones = new ArrayList<>();
+    
     public Integer getId() {
         return id;
     }
@@ -106,11 +109,6 @@ public class Alumno {
         this.id = id;
         this.nombre = nombre;
     }
-    
-@OneToMany(mappedBy = "alumno", cascade = CascadeType.ALL, orphanRemoval = true)
-private List<Inscripcion> inscripciones = new ArrayList<>();
-
-    
     
     
 }

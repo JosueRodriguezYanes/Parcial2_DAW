@@ -22,7 +22,7 @@ public class DateConverter implements Converter<Date> {
         try {
             return sdf.parse(value);
         } catch (ParseException e) {
-            throw new IllegalArgumentException("Cannot convert " + value + " to date", e);
+            throw new IllegalArgumentException("No puede ser convertido " + value + " a fecha", e);
         }
     }
 

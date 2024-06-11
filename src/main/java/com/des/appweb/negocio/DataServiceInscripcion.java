@@ -29,15 +29,4 @@ public class DataServiceInscripcion {
     public void saveInscripcion(Inscripcion inscripcion) {
         entityManager.persist(inscripcion);
     }
-
-    @Transactional
-    public void editInscripcion(Inscripcion inscripcion) {
-        entityManager.merge(inscripcion);
-    }
-
-    @Transactional
-    public void deleteInscripcion(Inscripcion inscripcion) {
-        Inscripcion inscripcionEliminar = entityManager.find(Inscripcion.class, inscripcion.getId());
-        entityManager.remove(inscripcionEliminar);
-    }
 }

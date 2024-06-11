@@ -39,6 +39,9 @@ public class Materia {
     
     @Column(name="codigo")
     private String codigo;
+    
+     @OneToMany(mappedBy = "materia", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Inscripcion> inscripciones = new ArrayList<>();
 
     public Materia(Integer id, String nombre, String descripcion, String codigo) {
         this.id = id;
@@ -50,6 +53,7 @@ public class Materia {
     public Materia() {
     }
 
+    
     
     
     //Getters y setters
@@ -116,9 +120,5 @@ public class Materia {
     public Materia(Integer id) {
         this.id = id;
     }
-    
-    @OneToMany(mappedBy = "materia", cascade = CascadeType.ALL, orphanRemoval = true)
-private List<Inscripcion> inscripciones = new ArrayList<>();
-
     
 }
