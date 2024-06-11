@@ -12,7 +12,7 @@ Explicación y funcionamiento del programa:
 
 1. Primero se descarga el proyecto.
 2. Posteriormente se abre el programa en netbeans (o cualquier entorno similar) y se ejecuta.
-3. Tomando en cuenta que se utilizó "Neon" para tener la base de datos en linea se dejan las siguientes credenciales:
+3. Tomando en cuenta que se utilizó "Neon" para tener la base de datos en linea se dejan las siguientes credenciales para agregarlas en payara:
    user -> sistema_educativo_owner
    password -> mV0dHWGUC6RY
    databaseName -> sistema_educativo
