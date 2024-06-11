@@ -55,15 +55,32 @@ public class InscripcionController {
         materiasList = dataServiceMateria.getMaterias();
     }
 
+     
+    
     public void guardarInscripcion() {
+        // Establece la fecha de inscripción como la fecha actual
+        inscripcion.setFechaInscripcion(Calendar.getInstance().getTime());   
+        
+        if (inscripcion == null) {
+            inscripcion = new Inscripcion();
+        }
 
-   
-            // Establece la fecha de inscripción como la fecha actual
-            inscripcion.setFechaInscripcion(Calendar.getInstance().getTime());
-            inscripcionService.saveInscripcion(inscripcion);
-            cargarInscripciones();
-            inscripcion = new Inscripcion();  // Reset form
-       
+        // Obtener el alumno y la materia seleccionados
+        Alumno alumno = dataService.findAlumnoById(inscripcion.getAlumno().getId());
+        Materia materia = dataServiceMateria.findMateriaById(inscripcion.getMateria().getId());
+
+        // Verificar que no sean nulos
+        if (alumno == null || materia == null) {
+            return;
+        }
+
+        inscripcion.setAlumno(alumno);
+        inscripcion.setMateria(materia);
+        
+        inscripcionService.saveInscripcion(inscripcion);
+        
+        inscripcion = new Inscripcion();
+        cargarInscripciones();
     }
 
     // Getters y setters

@@ -40,20 +40,22 @@
                 <p:panelGrid columns="1" layout="grid">
                     <h:inputHidden id="id" value="#{inscripcionController.inscripcion.id}"/>
 
-                    <h:outputLabel value="Alumno:" />
-                    <h:selectOneMenu value="#{inscripcionController.inscripcion.alumno}">
-                        <f:selectItem itemLabel="Seleccione Alumno" itemValue="" />
-                        <f:selectItems value="#{inscripcionController.alumnosList}" var="alumno"
-                                          itemLabel="#{alumno.nombre}" itemValue="#{alumno}" />
-                    </h:selectOneMenu>
-
                     <h:outputLabel value="Materia:" />
-                    <h:selectOneMenu value="#{inscripcionController.inscripcion.materia}">
+                    <h:selectOneMenu value="#{inscripcionController.inscripcion.materia.id}">
                         <f:selectItem itemLabel="Seleccione Materia" itemValue="" />
                         <f:selectItems value="#{inscripcionController.materiasList}" var="materia"
-                                           itemLabel="#{materia.nombre}" itemValue="#{materia}" />
+                                           itemLabel="#{materia.nombre}" itemValue="#{materia.id}" />
+                    </h:selectOneMenu>
+                    
+                    <h:outputLabel value="Alumno:" />
+                    <h:selectOneMenu value="#{inscripcionController.inscripcion.alumno.id}">
+                        
+                        <f:selectItem itemLabel="Seleccione Alumno" itemValue="" />
+                        <f:selectItems value="#{inscripcionController.alumnosList}" var="alumno"
+                                          itemLabel="#{alumno.nombre}" itemValue="#{alumno.id}"   />
                     </h:selectOneMenu>
 
+  
                     <h:outputLabel value="Ciclo:" />
                     <h:inputText value="#{inscripcionController.inscripcion.ciclo}" />
 
@@ -64,7 +66,7 @@
                 </p:panelGrid>
                 
                 <p:panelGrid columns="4" layout="grid">
-                    <p:commandButton value="Guardar" actionListener="#{inscripcionController.guardarInscripcion}" update=":tablaInscripciones :inscripcionForm"/>
+                    <p:commandButton value="Guardar" actionListener="#{inscripcionController.guardarInscripcion}" update="tablaInscripciones inscripcionForm"/>
                 </p:panelGrid>
 
             </h:form>

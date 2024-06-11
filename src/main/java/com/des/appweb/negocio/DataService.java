@@ -48,5 +48,9 @@ public class DataService {
       entityManager.remove(alumnoEliminar);
     }
     
+    public Alumno findAlumnoById(Integer id) {
+        return entityManager.find(Alumno.class, id);
+    }
+    
     
 }

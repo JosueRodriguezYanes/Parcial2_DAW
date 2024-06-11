@@ -12,7 +12,7 @@ public class Inscripcion {
     @SequenceGenerator(name = "inscripcion_id_seq", sequenceName = "inscripcion_id_seq", allocationSize = 1)
     private Integer id;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name = "alumno_id", nullable = false)
     private Alumno alumno;
 
@@ -29,6 +29,8 @@ public class Inscripcion {
     @Column(name = "fechaInscripcion")
     @Temporal(TemporalType.DATE)
     private Date  fechaInscripcion;
+    
+    //Contrusctores
 
     public Inscripcion(Integer id, Alumno alumno, Materia materia, String ciclo, String año, Date fechaInscripcion) {
         this.id = id;
@@ -40,6 +42,8 @@ public class Inscripcion {
     }
 
     public Inscripcion() {
+        this.alumno = new Alumno();
+        this.materia = new Materia();
     }
 
 

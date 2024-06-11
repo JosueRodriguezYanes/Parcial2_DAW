@@ -55,6 +55,7 @@ public class MateriaController {
     {
         this.materia.setId(materia.getId());
         this.materia.setNombre(materia.getNombre());
+        this.materia.setDescripcion(materia.getDescripcion());
         this.materia.setCodigo(materia.getCodigo());
     }
 

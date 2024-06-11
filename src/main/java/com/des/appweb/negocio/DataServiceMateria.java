@@ -48,5 +48,9 @@ public class DataServiceMateria {
       Materia materiaEliminar = entityManager.find(Materia.class, materia.getId());
       entityManager.remove(materiaEliminar);
     }
+    
+    public Materia findMateriaById(Integer id) {
+        return entityManager.find(Materia.class, id);
+    }
 
 }
